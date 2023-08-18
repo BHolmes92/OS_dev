@@ -19,3 +19,11 @@ Bootdrive/boot_drive.asm
 Bootdrive/boot_drive.bin
 Bootdrive/disk_load.asm
 Bootdrive/print_hex.asm
+Kernel/basic.bin
+Kernel/basic.c
+Kernel/basic.dis
+Kernel/basic.o
+Kernel/local_var.bin
+Kernel/local_var.c
+Kernel/local_var.dis
+Kernel/local_var.o
