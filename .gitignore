@@ -3,3 +3,5 @@
 Bootcode/
 Bootdrive/
 Kernel_bk/
+*.o
+*.bin
