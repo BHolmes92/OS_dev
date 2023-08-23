@@ -14,11 +14,11 @@ call switch_to_pm       ;Switch to protected mode
 jmp $
 
 ;Include Statements
-%include "../Bootdrive/print_string.asm"
-%include "../Bootdrive/disk_load.asm"
-%include "../32Protect/GDT.asm"
-%include "../32Protect/print_32.asm"
-%include "../32Protect/switch_to_pm.asm"
+%include "print_string.asm"
+%include "disk_load.asm"
+%include "GDT.asm"
+%include "print_32.asm"
+%include "switch_to_pm.asm"
 
 [bits 16]
 ;load kernel
