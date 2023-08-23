@@ -28,4 +28,7 @@ void print(char* message);
 //Clear Screen Function
 void clear_screen();
 
+//Scroll Screen Text
+int text_scroll(int cursor_offset);
+
 #endif
