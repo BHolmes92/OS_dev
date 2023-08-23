@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "low_level.h"
+#include "../kernel/util.h"
 
 static void print_char(char character, int col, int row, char attribute_byte){
     //Pointer to start of Video Memory
@@ -72,4 +73,24 @@ void clear_screen(){
     }
     //Set cursor back to 0,0
     set_cursor_offset(get_screen_offset(0,0));
+}
+
+int text_scroll(int cursor_offset){
+    //If cursor within screen return cursor
+    if(cursor_offset < MAX_ROWS * MAX_COLS *2){
+        return cursor_offset;
+    }
+    //Copy all rows up a row
+    int i;
+    for(i = 1; i < MAX_ROWS; i++){
+        memory_copy(get_screen_offset(0, i) + VIDEO_ADDRESS, get_screen_offset(0, i-1) + VIDEO_ADDRESS, MAX_COLS *2);
+    }
+    //Clear the last line for new text
+    char* last_line = get_screen_offset(0, MAX_ROWS - 1) + VIDEO_ADDRESS;
+    for(i = 0; i < MAX_COLS *2; i++){
+        last_line[i] = 0;
+    }
+    cursor_offset -= MAX_COLS * 2;
+
+    return cursor_offset;
 }
