@@ -27,7 +27,7 @@ static void print_char(char character, int col, int row, char attribute_byte){
         videomem[offset + 1] = attribute_byte;
     }
     offset += 2; //Move to next cursor postion
-    offset = handle_scrolling(offset);
+    offset = text_scroll(offset);
     set_cursor_offset(offset);
 }
 
@@ -93,4 +93,12 @@ int text_scroll(int cursor_offset){
     cursor_offset -= MAX_COLS * 2;
 
     return cursor_offset;
+}
+
+static int get_cursor(){
+    port_byte_out(REG_SCREEN_CTRL, 14); //Cursor location query high byte
+    int offset = port_byte_in(REG_SCREEN_DATA) << 8; //Shift to upperhalf
+    port_byte_out(REG_SCREEN_CTRL, 15);//Cursor location low byte
+    offset += port_byte_in(REG_SCREEN_DATA);
+    return offset * 2; //Account for 2bytes per cursor postion due to attributes
 }

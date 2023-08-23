@@ -31,4 +31,7 @@ void clear_screen();
 //Scroll Screen Text
 int text_scroll(int cursor_offset);
 
+//Get current cursor position
+static int get_cursor();
+
 #endif
