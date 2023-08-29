@@ -7,7 +7,7 @@ OBJ = ${C_SOURCES:.c=.o}
 CC = /home/ben/opt/cross/bin/i686-elf-gcc
 GDB = /home/ben/opt/cross/bin/i686-elf-gdb
 CL = /home/ben/opt/cross/bin/i686-elf-ld
-#Add dubug sybols
+#Add debug sybols
 CFLAGS = -g
 
 #all: os-image
@@ -15,7 +15,7 @@ CFLAGS = -g
 
 
 os-image: boot/boot_sect.bin kernel.bin
-	cat $^ > os-image
+	cat $^ > os-image.bin
 
 kernel.bin: boot/kernel_entry.o ${OBJ}
 	${CL} -o $@ -Ttext 0x1000  $^ --oformat binary
@@ -31,17 +31,17 @@ kernel.bin: boot/kernel_entry.o ${OBJ}
 	nasm $< -f bin -o $@
 
 clean:
-	rm -fr *.bin *.o os-image
+	rm -fr *.bin *.o os-image *.elf
 	rm -fr kernel/*.o drivers/*.o boot/*.o
 
 kernel.dis : kernel.bin
 	ndisasm -b 32 $< > $@
 
 run:
-	qemu-system-x86_64.exe -fda os-image
+	qemu-system-i386 -fda os-image.bin
 
 debug: os-image kernel.elf
-	qemu-system-x86_64.exe -s -fda os-image &
+	qemu-system-i386 -s -fda os-image.bin &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
 
 kernel.elf: boot/kernel_entry.o ${OBJ}
