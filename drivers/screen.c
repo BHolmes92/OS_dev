@@ -27,7 +27,7 @@ static int print_char(char character, int col, int row, char attribute_byte){
         videomem[offset + 1] = attribute_byte;
         offset += 2;
     }
-    //offset = text_scroll(offset);
+    offset = text_scroll(offset);
     set_screen_offset(offset);
     return offset;
 }
@@ -105,10 +105,11 @@ int text_scroll(int cursor_offset){
     //Copy all rows up a row
     int i;
     for(i = 1; i < MAX_ROWS; i++){
-        memory_copy((char*)get_screen_offset(0, i) + VIDEO_ADDRESS, (char*)get_screen_offset(0, i-1) + VIDEO_ADDRESS, MAX_COLS *2);
+        memory_copy((char*)get_offset(0, i) + VIDEO_ADDRESS, (char*)get_offset(0, i-1) + VIDEO_ADDRESS, 
+            MAX_COLS *2);
     }
     //Clear the last line for new text
-    char* last_line = (char*)get_screen_offset(0, MAX_ROWS - 1) + VIDEO_ADDRESS;
+    char* last_line = (char*)get_offset(0, MAX_ROWS - 1) + VIDEO_ADDRESS;
     for(i = 0; i < MAX_COLS *2; i++){
         last_line[i] = 0;
     }
