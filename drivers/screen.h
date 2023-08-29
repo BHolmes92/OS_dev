@@ -15,10 +15,10 @@
 //Print character on screen at col row postions
 static void print_char(char character, int col, int row, char attribute_byte);
 
-//Get cursor offset for a given col, row pair
+//Get cursor offset for a given col, row pair FROM SCREEN
 static int get_screen_offset(int col, int row);
 
-//Set cursor to offset postions
+//Set cursor to offset postions TO SCREEN
 static void set_cursor_offset(int offset);
 
 //Print function
@@ -31,7 +31,7 @@ void clear_screen();
 //Scroll Screen Text
 int text_scroll(int cursor_offset);
 
-//Get current cursor position
+//Get Cursor Memory positon for req coord
 static int get_cursor(int row, int col);
 
 #endif

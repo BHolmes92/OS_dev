@@ -80,8 +80,7 @@ void clear_screen(){
         screen[i*2] = ' '; //Move by 2 in video memory due to attribute bits
         screen[i*2 + 1] = WHITE_ON_BLACK; //Clear attribute to defualt
     }
-    set_cursor_offset(get_screen_offset(0,0));
-    print_at('X', 0,0);
+    set_cursor_offset(get_cursor(0,0));
 }
 
 int text_scroll(int cursor_offset){
