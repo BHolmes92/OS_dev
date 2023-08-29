@@ -25,8 +25,8 @@ static int print_char(char character, int col, int row, char attribute_byte){
     }else{
         videomem[offset] = character;
         videomem[offset + 1] = attribute_byte;
+        offset += 2;
     }
-    offset += 2;
     //offset = text_scroll(offset);
     set_screen_offset(offset);
     return offset;
@@ -53,7 +53,7 @@ static int get_offset(int col,int row){
 }
 
 static int get_offset_row(int offset){
-    return offset / 2 * MAX_COLS;
+    return offset / (2 * MAX_COLS);
 }
 
 static int get_offset_col(int offset){
