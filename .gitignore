@@ -8,3 +8,4 @@ Kernel_bk/
 boot_kernel/
 os-image
 *.elf
+bfg-1.14.0.jar
