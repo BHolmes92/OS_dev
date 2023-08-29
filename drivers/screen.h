@@ -32,6 +32,6 @@ void clear_screen();
 int text_scroll(int cursor_offset);
 
 //Get current cursor position
-static int get_cursor();
+static int get_cursor(int row, int col);
 
 #endif

@@ -13,15 +13,15 @@ static void print_char(char character, int col, int row, char attribute_byte){
     //Find offset from base ref
     int offset;
     if(col >= 0 && row >= 0){
-        offset = get_screen_offset(col, row);
+        offset = get_cursor(col, row);          //Find the requested cursor location
     }else{
-        offset = get_cursor();
+        offset = get_screen_offset(col, row);   //Go from current screen offset (poll screen)
     }
 
     //If newline is received move cursor to end of current row
     if(character == '\n'){
-        int rows = offset / (2*MAX_COLS);
-        offset = get_screen_offset(79, rows);
+        row = offset / (2*MAX_COLS);
+        offset = get_cursor(79, row);
     }else{
         videomem[offset] = character;
         videomem[offset + 1] = attribute_byte;
@@ -44,10 +44,16 @@ static void set_cursor_offset(int offset){
     port_byte_out(REG_SCREEN_CTRL, 14);//High byte
     port_byte_out(REG_SCREEN_DATA, (unsigned char)(offset >> 8));
     port_byte_out(REG_SCREEN_CTRL, 15);
-    port_byte_out(REG_SCREEN_DATA, offset & 0xff);
+    port_byte_out(REG_SCREEN_DATA, (unsigned char)offset & 0xff);
+}
+
+static int get_cursor(int row,int col){
+    return 2 * (row * MAX_COLS + col);
 }
 //====================================================================================
 //Public
+
+//Print a message at specified location
 void print_at(char* message, int col, int row){
     //If cursor is not negative update the cursor position
     if(col >= 0 && row >= 0){
@@ -59,6 +65,7 @@ void print_at(char* message, int col, int row){
     }
 }
 
+//Print a message at current location
 void print(char* message){
     print_at(message, -1, -1);
 }
@@ -74,6 +81,7 @@ void clear_screen(){
         screen[i*2 + 1] = WHITE_ON_BLACK; //Clear attribute to defualt
     }
     set_cursor_offset(get_screen_offset(0,0));
+    print_at('X', 0,0);
 }
 
 int text_scroll(int cursor_offset){
@@ -96,10 +104,3 @@ int text_scroll(int cursor_offset){
     return cursor_offset;
 }
 
-static int get_cursor(){
-    port_byte_out(REG_SCREEN_CTRL, 14); //Cursor location query high byte
-    int offset = port_byte_in(REG_SCREEN_DATA) << 8; //Shift to upperhalf
-    port_byte_out(REG_SCREEN_CTRL, 15);//Cursor location low byte
-    offset += port_byte_in(REG_SCREEN_DATA);
-    return offset * 2; //Account for 2bytes per cursor postion due to attributes
-}
