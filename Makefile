@@ -14,7 +14,7 @@ CFLAGS = -g
 
 
 
-os-image: boot/boot_sect.bin kernel.bin
+os-image.bin: boot/boot_sect.bin kernel.bin
 	cat $^ > os-image.bin
 
 kernel.bin: boot/kernel_entry.o ${OBJ}
@@ -37,7 +37,7 @@ clean:
 kernel.dis : kernel.bin
 	ndisasm -b 32 $< > $@
 
-run:
+run: os-image.bin
 	qemu-system-i386 -fda os-image.bin
 
 debug: os-image kernel.elf
