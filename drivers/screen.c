@@ -64,14 +64,15 @@ void print(char* message){
 }
 
 void clear_screen(){
-
-    //Loop through video memory and rest each positons
-    for(int row = 0; row < MAX_ROWS; row++){
-        for(int col = 0; col < MAX_COLS; col++){
-            print_char(' ', col, row, WHITE_ON_BLACK);
-        }
+    //Screen size
+    int screen_size = MAX_COLS * MAX_ROWS;
+    int i;
+    char* screen = VIDEO_ADDRESS;
+    //Loop through video memory and blank 
+    for(i = 0; i < screen_size; i++){
+        screen[i*2] = ' '; //Move by 2 in video memory due to attribute bits
+        screen[i*2 + 1] = WHITE_ON_BLACK; //Clear attribute to defualt
     }
-    //Set cursor back to 0,0
     set_cursor_offset(get_screen_offset(0,0));
 }
 
