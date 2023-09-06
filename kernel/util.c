@@ -19,5 +19,15 @@ void memory_set(uint8_t* dest, uint8_t val, uint32_t len){
 }
 
 void int_to_ascii(int n, char str[]){
-    //TODO
+    int index = 0;
+    if( n < 0){
+        str[index] = '-';
+        index++;
+    }
+    //Loop through integer until zero
+    while((n /= 10) > 0){
+        str[index] = n % 10 + '0'; //Add ascii 0 as offset
+        index++;
+    }
+    str[index] = '\0';
 }
