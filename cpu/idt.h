@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+#define IDT_ENTRIES 256
+#define KERNEL_CS 0x08
+
 //Interupt Gate
 typedef struct {
     uint16_t base_low; //Lower 16 bits of address to jmp to
@@ -17,6 +20,12 @@ typedef struct {
     uint16_t limit;
     uint32_t base;
 }__attribute__((packed)) idt_ptr_t;
+
+idt_entry_t idt[IDT_ENTRIES];
+idt_ptr_t idt_reg;
+
+void set_idt_gate(int n, uint32_t handler);
+void set_idt();
 
 #endif //IDT_H
 
