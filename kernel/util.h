@@ -8,7 +8,7 @@
 
 //Copy no_bytes of data FROM source TO dest
 void memory_copy(char* source, char* dest, int no_bytes);
-void memory_set(uint8_t dest, uint8_t val, uint32_t len);
+void memory_set(uint8_t* dest, uint8_t val, uint32_t len);
 void int_to_ascii(int n, char str[]);
 
 
