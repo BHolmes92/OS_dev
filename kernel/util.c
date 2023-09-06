@@ -25,9 +25,10 @@ void int_to_ascii(int n, char str[]){
         index++;
     }
     //Loop through integer until zero
-    while((n /= 10) > 0){
+    do{
         str[index] = n % 10 + '0'; //Add ascii 0 as offset
         index++;
-    }
+    }while((n /=10) > 0);
+    
     str[index] = '\0';
 }
