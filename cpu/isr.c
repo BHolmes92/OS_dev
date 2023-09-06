@@ -114,7 +114,7 @@ char *exception_messages[] = {
 };
 
 void isr_handler(registers_t r){
-    print("Interupt Received: ");
+    print("Interupt Received:  \n");
     char s[3];
     int_to_ascii(r.int_no, s);
     print(s);
