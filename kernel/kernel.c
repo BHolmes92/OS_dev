@@ -1,9 +1,10 @@
 #include "../drivers/screen.h"
 #include "../cpu/isr.h"
+#include "../cpu/timer.h"
 
 void main(){
     isr_install();
-    print("Testing Interupts\n");
+    clear_screen();
     __asm__ __volatile__("int $2");
     __asm__ __volatile__("int $3");
 }
