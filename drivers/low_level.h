@@ -1,9 +1,11 @@
 #ifndef LOW_LEVEL_H
 #define LOW_LEVEL_H
 
-unsigned char port_byte_in(unsigned short port);
-unsigned char port_byte_out(unsigned short port, unsigned char data);
-unsigned char port_word_in(unsigned short port);
-unsigned char port_word_out(unsigned short port, unsigned char data);
+#include <stdint.h>
+
+uint8_t port_byte_in(uint16_t port);
+void port_byte_out(uint16_t port, uint8_t data);
+uint16_t port_word_in(uint16_t port);
+void port_word_out(uint16_t port, uint16_t data);
 
 #endif
