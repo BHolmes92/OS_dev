@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-//Define CMD values
+/* //Define CMD values
 #define PIC_MASTER_CMD 0x0020
 #define PIC_MASTER_DATA 0x0021
 #define PIC_SLAVE_CMD 0x00A0
@@ -25,7 +25,7 @@
 #define IRQ12 44
 #define IRQ13 45
 #define IRQ14 46
-#define IRQ15 47
+#define IRQ15 47 */
 
 //Intel Reserved ISRs 0-31
 extern void isr0();
@@ -61,7 +61,7 @@ extern void isr29();
 extern void isr30();
 extern void isr31();
 
-//IRQs 32-47
+/* //IRQs 32-47
 extern void irq0();
 extern void irq1();
 extern void irq2();
@@ -77,13 +77,13 @@ extern void irq11();
 extern void irq12();
 extern void irq13();
 extern void irq14();
-extern void irq15();
+extern void irq15(); */
 
 typedef struct{
     uint32_t ds;
-    uint32_t edi, esi, ebp, esp, ebx, ecx, eax;  //Registers to be pushed
+    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;  //Registers to be pushed
     uint32_t int_no, err_code;                   //Interupt Number and error Code
-    uint32_t eip, eflags, useresp, ss;           //Processor variables
+    uint32_t eip, cs, eflags, useresp, ss;           //Processor variables
 }registers_t;
 
 void isr_install();
