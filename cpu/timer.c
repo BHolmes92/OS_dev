@@ -11,6 +11,7 @@ static void timer_callback(registers_t r){
     print("Tick: ");
     char s[256];
     int_to_ascii(tick, s);
+    print(s);
     print("\n");
 }
 
