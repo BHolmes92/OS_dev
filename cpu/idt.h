@@ -13,7 +13,7 @@ typedef struct {
     uint8_t  const_zero; //Always zero
     uint8_t  flags;      //Flags
     uint16_t base_hi;    //Upper 16 bits of address to jmp to
-}__attribute__((packed)) idt_entry_t;
+}__attribute__((packed)) idt_gate_t;
 
 //Interupt Pointer
 typedef struct {
@@ -21,7 +21,7 @@ typedef struct {
     uint32_t base;
 }__attribute__((packed)) idt_ptr_t;
 
-extern idt_entry_t idt[IDT_ENTRIES];
+extern idt_gate_t idt[];
 extern idt_ptr_t idt_reg;
 
 void set_idt_gate(int n, uint32_t handler);
