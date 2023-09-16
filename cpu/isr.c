@@ -6,7 +6,7 @@
 
 isr_t interrupt_handlers[256];
 
-void isr_install(){
+/* void isr_install(){
     //Set up Interupt Descriptor Table 0-31
     set_idt_gate(0, (uint32_t)isr0);
     set_idt_gate(1, (uint32_t)isr1);
@@ -72,7 +72,7 @@ void isr_install(){
     set_idt_gate(IRQ15, (uint32_t)irq15);
 
     set_idt();
-}
+} */
 
 //Exception Messages for interupts
 char *exception_messages[] = {
